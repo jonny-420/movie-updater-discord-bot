@@ -23,6 +23,12 @@ async def ping(ctx):
 async def help(ctx):
     await ctx.send("help") """
 
+@bot.command()
+async def listCommands(ctx):
+    await ctx.send("/ping -> checks if the bot is alive \n"
+    "/subscribe genre -> subscribe to topics of a specific genre\n"
+    "/list genres -> lists all the genres that a user is subscribed to\n"
+    "/unsubscribe genre -> allows a user to unsubscribe to a genre\n")
 
 @bot.command()
 async def upcoming(ctx):
@@ -34,5 +40,8 @@ async def upcoming(ctx):
         await ctx.send('Something Went wrong ;-; Please try again later.')
     # print(response.text)
 
+
+""" @bot.command()
+async def subsrcibe(ctx): """
 
 bot.run(token)
