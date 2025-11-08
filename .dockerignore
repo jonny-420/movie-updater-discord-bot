@@ -1,0 +1,6 @@
+.env
+.gitignore
+README.md
+*.pyc
+*.pyo
+.qodo
