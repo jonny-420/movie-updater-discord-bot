@@ -2,17 +2,22 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from httpService import fecthUpcoming
-from messageFormater import formatResponse
+from services.httpService import fecthUpcoming
+from services.messageFormater import formatResponse
+from repository.BotRepo import BotRepo
+from cogs import MemberRegister  
+import asyncio
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
-
+botRepo = BotRepo()
+bot.repo = botRepo
 
 @bot.command()
 async def ping(ctx):
@@ -41,7 +46,15 @@ async def upcoming(ctx):
     # print(response.text)
 
 
-""" @bot.command()
-async def subsrcibe(ctx): """
+@bot.command()
+async def subscribe(ctx):
+    member = ctx.author
+    print(f'member id: {member.id}, member name: {member.name}')
+
+@bot.event
+async def on_ready():
+    bot.repo.connect()
+    await bot.load_extension("cogs.MemberRegister")
+    print("loaded cog")
 
 bot.run(token)
