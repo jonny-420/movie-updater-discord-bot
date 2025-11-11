@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from services.httpService import fecthUpcoming
 from services.messageFormater import formatResponse
 from repository.BotRepo import BotRepo
-from cogs import MemberRegister  
-import asyncio
+from services.getRolesNames import get_roles_names
+
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -19,7 +19,17 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 botRepo = BotRepo()
 bot.repo = botRepo
 
+
+async def check_user_role(ctx):
+    member = ctx.author
+    user_roles = get_roles_names(member.roles)
+    if "movie watcher" in user_roles:
+        return True
+    await ctx.send('You don\'t have the necessary role to use this bot')
+    return False
+
 @bot.command()
+@commands.check(check_user_role) 
 async def ping(ctx):
     await ctx.send("I am alive")
 
@@ -29,6 +39,7 @@ async def help(ctx):
     await ctx.send("help") """
 
 @bot.command()
+@commands.check(check_user_role)
 async def listCommands(ctx):
     await ctx.send("/ping -> checks if the bot is alive \n"
     "/subscribe genre -> subscribe to topics of a specific genre\n"
@@ -36,6 +47,7 @@ async def listCommands(ctx):
     "/unsubscribe genre -> allows a user to unsubscribe to a genre\n")
 
 @bot.command()
+@commands.check(check_user_role)
 async def upcoming(ctx):
     try:
         response = await fecthUpcoming()
@@ -47,6 +59,7 @@ async def upcoming(ctx):
 
 
 @bot.command()
+@commands.check(check_user_role)
 async def subscribe(ctx):
     member = ctx.author
     print(f'member id: {member.id}, member name: {member.name}')
