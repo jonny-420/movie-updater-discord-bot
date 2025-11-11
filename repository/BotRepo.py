@@ -32,6 +32,14 @@ class BotRepo():
         
         self.connection.close()
 
-    def insertMember(self, userId, userName):
+    def insertMember(self, userName):
         cursor = self.connection.cursor()
-        sql = f'INSERT INTO member (username) values ({userName})'
+        sql = f'INSERT INTO member (username) VALUES (\'{userName}\')'
+        cursor.execute(sql)
+        self.connection.commit()
+
+    def removeMember(self, userName):
+        cursor = self.connection.cursor()
+        sql = f'DELETE FROM member WHERE username = \'{userName}\''
+        cursor.execute(sql)
+        self.connection.commit()
