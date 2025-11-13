@@ -1,6 +1,7 @@
 import os
 import psycopg2
 from dotenv import load_dotenv
+import bcrypt
 
 class BotRepo():
     
@@ -32,9 +33,12 @@ class BotRepo():
         
         self.connection.close()
 
-    def insertMember(self, userName):
+    def insertMember(self, userId, userName):
         cursor = self.connection.cursor()
-        sql = f'INSERT INTO member (username) VALUES (\'{userName}\')'
+        bytes = str(userId).encode('utf-8')
+        salt = bcrypt.gensalt()
+        hash = bcrypt.hashpw(bytes, salt)
+        sql = f"INSERT INTO member (id, username) VALUES ('{hash.decode('utf-8')}' , '{userName}')"
         cursor.execute(sql)
         self.connection.commit()
 

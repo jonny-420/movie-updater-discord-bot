@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from services.httpService import fecthUpcoming
 from services.messageFormater import formatResponse
 from repository.BotRepo import BotRepo
-from services.getRolesNames import get_roles_names
-
+from services.checkUserRoles import check_user_role
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -19,14 +18,6 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 botRepo = BotRepo()
 bot.repo = botRepo
 
-
-async def check_user_role(ctx):
-    member = ctx.author
-    user_roles = get_roles_names(member.roles)
-    if "movie watcher" in user_roles:
-        return True
-    await ctx.send('You don\'t have the necessary role to use this bot')
-    return False
 
 @bot.command()
 @commands.check(check_user_role) 
@@ -58,16 +49,11 @@ async def upcoming(ctx):
     # print(response.text)
 
 
-@bot.command()
-@commands.check(check_user_role)
-async def subscribe(ctx):
-    member = ctx.author
-    print(f'member id: {member.id}, member name: {member.name}')
-
 @bot.event
 async def on_ready():
     bot.repo.connect()
     await bot.load_extension("cogs.MemberRegister")
+    await bot.load_extension("cogs.SubscriptionCog")
     print("loaded cog")
 
 bot.run(token)
