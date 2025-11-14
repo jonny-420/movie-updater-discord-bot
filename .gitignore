@@ -209,3 +209,39 @@ __marimo__/
 # DB
 /DB/data
 /DB/setup/02-insert.sql
+
+
+# Spring middleware
+/BotMiddleware/HELP.md
+/BotMiddleware/target/
+/BotMiddleware/.mvn/wrapper/maven-wrapper.jar
+/BotMiddleware/!**/src/main/**/target/
+/BotMiddleware/!**/src/test/**/target/
+
+### STS ###
+/BotMiddleware/.apt_generated
+/BotMiddleware/.classpath
+/BotMiddleware/.factorypath
+/BotMiddleware/.project
+/BotMiddleware/.settings
+/BotMiddleware/.springBeans
+/BotMiddleware/.sts4-cache
+
+### IntelliJ IDEA ###
+/BotMiddleware/.idea
+/BotMiddleware/*.iws
+/BotMiddleware/*.iml
+/BotMiddleware/*.ipr
+
+### NetBeans ###
+/BotMiddleware/nbproject/private/
+/BotMiddleware/nbbuild/
+/BotMiddleware/dist/
+/BotMiddleware/nbdist/
+/BotMiddleware/.nb-gradle/
+/BotMiddleware/build/
+/BotMiddleware/!**/src/main/**/build/
+/BotMiddleware/!**/src/test/**/build/
+
+### VS Code ###
+/BotMiddleware/.vscode/
