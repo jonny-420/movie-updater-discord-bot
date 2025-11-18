@@ -48,3 +48,10 @@ class BotRepo():
         sql = f'DELETE FROM member WHERE username = \'{userName}\''
         cursor.execute(sql)
         self.connection.commit()
+
+    def getGenres(self):
+        print("I am requesting database")
+        cursor = self.connection.cursor()
+        sql = "SELECT * FROM genres"
+        response = cursor.execute(sql)
+        print(response)

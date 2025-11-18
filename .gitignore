@@ -207,41 +207,41 @@ marimo/_lsp/
 __marimo__/
 
 # DB
-/Bot/DB/data
-/Bot/DB/setup/02-insert.sql
+Bot/db/data/
+Bot/db/setup/02-insert.sql
 
 
 # Spring middleware
-/BotMiddleware/HELP.md
-/BotMiddleware/target/
-/BotMiddleware/.mvn/wrapper/maven-wrapper.jar
-/BotMiddleware/!**/src/main/**/target/
-/BotMiddleware/!**/src/test/**/target/
+BotMiddleware/HELP.md
+BotMiddleware/target/
+BotMiddleware/.mvn/wrapper/maven-wrapper.jar
+BotMiddleware/!**/src/main/**/target/
+BotMiddleware/!**/src/test/**/target/
 
 ### STS ###
-/BotMiddleware/.apt_generated
-/BotMiddleware/.classpath
-/BotMiddleware/.factorypath
-/BotMiddleware/.project
-/BotMiddleware/.settings
-/BotMiddleware/.springBeans
-/BotMiddleware/.sts4-cache
+BotMiddleware/.apt_generated
+BotMiddleware/.classpath
+BotMiddleware/.factorypath
+BotMiddleware/.project
+BotMiddleware/.settings
+BotMiddleware/.springBeans
+BotMiddleware/.sts4-cache
 
 ### IntelliJ IDEA ###
-/BotMiddleware/.idea
-/BotMiddleware/*.iws
-/BotMiddleware/*.iml
-/BotMiddleware/*.ipr
+BotMiddleware/.idea
+BotMiddleware/*.iws
+BotMiddleware/*.iml
+BotMiddleware/*.ipr
 
 ### NetBeans ###
-/BotMiddleware/nbproject/private/
-/BotMiddleware/nbbuild/
-/BotMiddleware/dist/
-/BotMiddleware/nbdist/
-/BotMiddleware/.nb-gradle/
-/BotMiddleware/build/
-/BotMiddleware/!**/src/main/**/build/
-/BotMiddleware/!**/src/test/**/build/
+BotMiddleware/nbproject/private/
+BotMiddleware/nbbuild/
+BotMiddleware/dist/
+BotMiddleware/nbdist/
+BotMiddleware/.nb-gradle/
+BotMiddleware/build/
+BotMiddleware/!**/src/main/**/build/
+BotMiddleware/!**/src/test/**/build/
 
 ### VS Code ###
-/BotMiddleware/.vscode/
+BotMiddleware/.vscode/
