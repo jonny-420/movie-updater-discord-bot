@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from services.httpService import HttpService
-from services.messageFormater import formatResponse
+from utils.messageFormater import formatResponse
 from repository.BotRepo import BotRepo
 from services.checkUserRoles import check_user_role
 

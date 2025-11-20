@@ -50,8 +50,38 @@ class BotRepo():
         self.connection.commit()
 
     def getGenres(self):
-        print("I am requesting database")
         cursor = self.connection.cursor()
         sql = "SELECT * FROM genres"
-        response = cursor.execute(sql)
+        cursor.execute(sql)
+        response = cursor.fetchall()
         print(response)
+        return response
+        
+    # TODO: missing validation to prevent a user from subscribing more than once to the same genre
+    def insertGenreSubscription(self, genre, member):
+        try:
+            cursor = self.connection.cursor()
+            member_id = self.getMemberId(cursor, member)
+            # print(member_id)
+            sql = f"INSERT INTO genre_subscription (genre_id, member_id) VALUES ({genre[0]}, '{member_id}')"
+            cursor.execute(sql)
+            self.connection.commit()
+        except psycopg2.DatabaseError as error:
+            self.connection.rollback()
+            print(error)
+
+    def listSubscriptions(self, member):
+        try:
+            cursor = self.connection.cursor()
+            member_id = self.getMemberId(cursor, member)
+            sql = f"SELECT genres.genre_id, genres.genre FROM genres JOIN genre_subscription ON genres.genre_id = genre_subscription.genre_id WHERE genre_subscription.member_id = '{member_id}'"
+            cursor.execute(sql)
+            return cursor.fetchall()
+        except psycopg2.DatabaseError as error:
+            self.connection.rollback()
+            print(f"Error listing subscriptions: \n{error}")
+
+    def getMemberId(self, cursor, member):
+        sql = f"SELECT id FROM member WHERE username = '{member.name}'"
+        cursor.execute(sql)
+        return cursor.fetchall()[0][0]
