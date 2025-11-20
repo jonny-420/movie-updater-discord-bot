@@ -31,9 +31,23 @@ def etl():
             port = port
         )
 
-        query = "insert into company (company_id, company) values"
+        movie_query = "INSERT INTO movie (movie_id, title, overview, release_date, popularity) VALUES"
+        genre_query = "INSERT INTO movie_genres (movie_id, genre_id) VALUES"
         for movie in upcoming:
-            query += f"('{movie.id}, ')"
+            movie_query += f"({movie['id']}, '{movie['title']}', '{movie['overview']}', '{movie['release_date']}', {movie['popularity']}),"
+            for genre in movie['genre_ids']:
+                genre_query += f"({movie['id']}, {genre}),"  
+        
+        movie_query += ";"
+        genre_query += ";"
+        print(f"movie query: {movie_query}")
+        print(f"genre query: {genre_query}")
+
+        connection.commit()
+        connection.close()
 
     except:
         print("Something went wrong")                   # TODO: improve error handling
+
+
+etl()
