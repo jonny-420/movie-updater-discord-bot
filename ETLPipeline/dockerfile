@@ -1,19 +1,24 @@
 FROM python:3.11.9
 
 # Install cron
-RUN apt-get update && apt-get install -y cron && apt-get clean
+RUN apt-get update && apt-get install -y cron && apt-get clean  
+
 
 WORKDIR /app
 
 # Copy and install Python dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
-COPY . .
+COPY etl.py .
+COPY entrypoint.sh .
+COPY cronjob /etc/cron.d/etl_cron
+RUN chmod 0644 /etc/cron.d/etl_cron
 
 
 # Make entrypoint executable
 RUN chmod +x /app/entrypoint.sh
+RUN touch /var/log/cron.log && chmod 666 /var/log/cron.log
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["service", "cron", "start", "&&", "tail", "-f", "/var/log/cron.log"]  

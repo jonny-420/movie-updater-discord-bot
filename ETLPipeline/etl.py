@@ -21,7 +21,9 @@ def etl():
     }
     
     try:
+        print(api_token)
         response = requests.get(url, headers=headers)
+        print(response.text)
         upcoming = json.loads(response.text)['results']
         connection = psycopg2.connect(
             database = database,
@@ -38,16 +40,24 @@ def etl():
             for genre in movie['genre_ids']:
                 genre_query += f"({movie['id']}, {genre}),"  
         
-        movie_query += ";"
-        genre_query += ";"
+        movie_query += movie_query[:-1] + ";"
+        genre_query += genre_query[:-1] + ";"
         print(f"movie query: {movie_query}")
         print(f"genre query: {genre_query}")
 
+        cursor = connection.cursor()
+        cursor.execute(movie_query)
+        cursor.execute(genre_query)
         connection.commit()
         connection.close()
 
-    except:
-        print("Something went wrong")                   # TODO: improve error handling
+    except psycopg2.DatabaseError as error:
+        print(f"Something went wrong: \n{error}")                   
 
+if __name__ == "__main__":
+    print("I am about to run")
+    etl()    # code to run when this file is executed directly
 
-etl()
+""" print("executed")
+etl() """
+
