@@ -25,6 +25,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      broker:
+        condition: service_healthy
   etl:
     image: bot-etl
     container_name: bot_etl
@@ -33,3 +35,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      broker:
+        condition: service_healthy
+  broker:
+    image: rabbitmq:3-management
+    container_name: bot_broker
+    ports:
+      - "127.0.0.1:8080:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

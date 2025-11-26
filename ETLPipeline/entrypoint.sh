@@ -1,2 +1,3 @@
 #!/bin/bash
-exec python3 /app/etl.py
+
+python3 /app/etl.py
