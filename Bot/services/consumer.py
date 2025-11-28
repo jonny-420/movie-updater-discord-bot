@@ -48,4 +48,4 @@ class consumer():
                     if self.bot:
                         channel = self.bot.get_channel(int(self.channel_id))
                         if channel:
-                            await channel.send(f"Top 3 movies coming out \n{message.body.decode()}")
+                            await channel.send(f"Top movies coming out \n{message.body.decode()}")

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, BIGINT, Integer, ForeignKey, String, Date, REAL
+from sqlalchemy import Column, BIGINT, Integer, ForeignKey, String, Date, REAL, UniqueConstraint
 
 Base = declarative_base()
 
@@ -21,3 +21,7 @@ class movieGenre(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     movie_id = Column(BIGINT, ForeignKey('movie.movie_id'))
     genre_id = Column(BIGINT, ForeignKey("genres.genre_id"))
+
+    __table_args__ = (
+        UniqueConstraint('movie_id', 'genre_id', name='uq_movie_genre'),
+    )

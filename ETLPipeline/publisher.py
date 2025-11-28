@@ -1,4 +1,5 @@
 import pika
+from datetime import date, datetime
 
 class publisher():
 
@@ -26,9 +27,9 @@ class publisher():
             return
         channel = self.connection.channel()
         
-        
-        movie_query.sort(key=lambda x: x.popularity, reverse=True)
-        movies_string = "\n".join([f"🎬 {m.title} - summary: {m.overview}" for m in movie_query[:3]])
+        movie_query.sort(key=lambda x: x['popularity'], reverse=True)
+        movie_query = list(filter(lambda x: datetime.strptime(x['release_date'], '%Y-%m-%d').date() >= date.today(), movie_query))
+        movies_string = "\n".join([f"🎬 {m['title']} - summary: {m['overview']} | release date: {m['release_date']}" for m in movie_query[:3]])
 
         channel.basic_publish(
             exchange=self.exchange,

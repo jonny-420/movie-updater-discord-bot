@@ -24,7 +24,8 @@ CREATE TABLE movie(
 CREATE TABLE movie_genres(
     id SERIAL PRIMARY KEY,
     movie_id BIGINT REFERENCES movie(movie_id) ON DELETE CASCADE,
-    genre_id BIGINT REFERENCES genres(genre_id) ON DELETE CASCADE
+    genre_id BIGINT REFERENCES genres(genre_id) ON DELETE CASCADE,
+    UNIQUE (movie_id, genre_id)
 );
 
 CREATE TABLE genre_subscription(
