@@ -3,3 +3,5 @@ python-dotenv
 requests 
 psycopg2 
 bcrypt
+aio-pika
+asyncio

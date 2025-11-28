@@ -6,9 +6,17 @@ from services.httpService import HttpService
 from utils.messageFormater import formatResponse
 from repository.BotRepo import BotRepo
 from services.checkUserRoles import check_user_role
+from services.consumer import consumer
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
+rabbit_user = os.getenv('RABBITMQ_DEFAULT_USER')
+rabbit_pwd = os.getenv('RABBITMQ_DEFAULT_PASS')
+exchange_name = os.getenv('EXCHANGE_NAME')
+routing_key = os.getenv('ROUTING_KEY')
+rabbit_host = os.getenv('RABBIT_HOST')
+rabbit_port = os.getenv('RABBIT_PORT')
+channel_id = os.getenv('CHANNEL_ID')
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -18,7 +26,7 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 botRepo = BotRepo()
 bot.repo = botRepo
 service = HttpService()
-
+consumer = consumer(exchange_name, routing_key, rabbit_user, rabbit_pwd, rabbit_port, rabbit_host, bot, channel_id)
 
 @bot.command()
 @commands.check(check_user_role) 
@@ -55,6 +63,8 @@ async def on_ready():
     bot.repo.connect()
     await bot.load_extension("cogs.MemberRegister")
     await bot.load_extension("cogs.SubscriptionCog")
+    await consumer.connect()
+    bot.loop.create_task(consumer.consume())
     print("loaded cog")
 
 bot.run(token)
