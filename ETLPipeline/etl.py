@@ -5,7 +5,7 @@ import os
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.dialects.postgresql import insert
-from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.orm import sessionmaker
 from DTOS import movie, movieGenre
 from publisher import publisher
 import pika
@@ -38,7 +38,7 @@ def etl():
         upcoming = json.loads(response.text)['results']
 
         engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}/{database}")
-        session = sessionmaker(bind = engine)
+        # session = sessionmaker(bind = engine)
         
         p.connect()
         # The second step is to create te objects to be inserted on the database

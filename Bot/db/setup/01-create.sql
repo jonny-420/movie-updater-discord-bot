@@ -31,7 +31,8 @@ CREATE TABLE movie_genres(
 CREATE TABLE genre_subscription(
     id SERIAL PRIMARY KEY,
     genre_id BIGINT REFERENCES genres(genre_id),
-    member_id varchar(500) REFERENCES member(id) ON DELETE CASCADE
+    member_id varchar(500) REFERENCES member(id) ON DELETE CASCADE,
+    UNIQUE (genre_id, member_id)
 );
 
 

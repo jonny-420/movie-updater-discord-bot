@@ -1,4 +1,5 @@
 from utils.formatGenreList import formatGenreList
+from Exceptions.SubscriptionViolationException import SubscriptionViolationException
 
 
 class SubscriptionService():
@@ -20,7 +21,7 @@ class SubscriptionService():
                 
                 choice = await self.bot.wait_for('message', check=validate, timeout=60.0)
                 choice = int(choice.content) 
-                if choice >= 1 and choice <= len(res):
+                if choice >= 0 and choice <= len(res):
                     print(choice)
                     self.repo.insertGenreSubscription(res[choice], ctx.author)
                     await ctx.send(f"successfully subscribed to {res[choice][1]}")
@@ -28,6 +29,8 @@ class SubscriptionService():
                 else:
                     await ctx.send("please select a valida number")   
 
+        except SubscriptionViolationException:
+            await ctx.send("You're already subscribed to that genre")
         except:
             await ctx.send("Something went wrong, please try again later!")
 

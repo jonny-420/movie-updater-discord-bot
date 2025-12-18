@@ -209,6 +209,7 @@ __marimo__/
 # DB
 Bot/db/data/
 Bot/db/setup/02-insert.sql
+Bot/db/test.sql
 
 
 # Spring middleware

@@ -3,4 +3,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # 42 15 * * 3 root /app/entrypoint.sh >> /var/log/cron.log 2>&1
 
-35 16 * * 5 root python3 /app/etl.py >> /var/log/cron.log 2>&1
+0 12 * * 4 root python3 /app/etl.py >> /var/log/cron.log 2>&1

@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from services.httpService import HttpService
-from utils.messageFormater import formatResponse
 from repository.BotRepo import BotRepo
 from services.checkUserRoles import check_user_role
 from services.consumer import consumer
@@ -45,17 +44,6 @@ async def listCommands(ctx):
     "/subscribe genre -> subscribe to topics of a specific genre\n"
     "/list genres -> lists all the genres that a user is subscribed to\n"
     "/unsubscribe genre -> allows a user to unsubscribe to a genre\n")
-
-@bot.command()
-@commands.check(check_user_role)
-async def upcoming(ctx):
-    try:
-        response = await service.fecthUpcoming()
-        ans = await formatResponse(response)
-        [await ctx.send(movie) for movie in ans]
-    except:
-        await ctx.send('Something Went wrong ;-; Please try again later.')
-    # print(response.text)
 
 
 @bot.event
