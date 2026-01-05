@@ -37,8 +37,9 @@ For now it is only being considered genre subsrciptions """
     @commands.check(check_user_role)
     async def upcoming(self, ctx):
         try:
-            response = await self.bot.repo.upcomingMoviesBySubscription(ctx.author)
-            print(f"response: {response}")
+            response = self.bot.repo.upcomingMoviesBySubscription(ctx.author)
+            for m in response:
+                print(m)
             ans = await formatResponse(response)
             print(f"ans: {ans}")
             for movie in ans:
