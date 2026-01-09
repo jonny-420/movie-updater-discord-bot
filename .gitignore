@@ -246,3 +246,6 @@ BotMiddleware/!**/src/test/**/build/
 
 ### VS Code ###
 BotMiddleware/.vscode/
+
+## Demo Videos
+videos/ 

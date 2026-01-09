@@ -93,7 +93,7 @@ class BotRepo():
         try:
             cursor = self.connection.cursor()
             member_id = self.getMemberId(cursor, member)
-            sql = f"SELECT movie.title, movie.overview, movie.release_date FROM genre_subscription JOIN movie_genres ON genre_subscription.genre_id = movie_genres.genre_id JOIN movie ON movie.movie_id = movie_genres.movie_id WHERE member_id = '{member_id}'"
+            sql = f"SELECT movie.title, movie.overview, movie.release_date FROM genre_subscription JOIN movie_genres ON genre_subscription.genre_id = movie_genres.genre_id JOIN movie ON movie.movie_id = movie_genres.movie_id WHERE member_id = '{member_id}' AND movie.release_date >= DATE(now())"
             cursor.execute(sql)
             return cursor.fetchall()
         except Exception as error:

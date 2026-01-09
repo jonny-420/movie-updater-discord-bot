@@ -30,13 +30,21 @@ The above image shows the design entity relation model for the bot database. All
 - movie_genres: A relationship, that allows to identify which genres a movie has.
 - genre_subscription: Identifies the genres a member of the server is subscribed to.
 
-# Bot Commands
+# Bot Features
 
-/ping -> A ping command to test if the bot is alive. <br>
-/listcommands -> Returns a list of all the available commands. <br>
-/subscribe genre -> Allows a user to subscribe to a specific genre. <br>
-/listsubscriptions -> Lists all subscriptions for the member. <br>
-/upcoming -> Returns only the upcoming movies that have the genres that a user is subscribed to.
+## Commands
+
+Each command has a demo video, posted on my youtube channel. In order to see the video, just select the demo in one of the commands, or you can find all the videos in my [playlist]().
+
+/ping -> A ping command to test if the bot is alive. [demo](https://youtu.be/if4bIWr39Ak) <br>
+/listCommands -> Returns a list of all the available commands. [demo](https://youtu.be/9EhAZpyh0xQ) <br>
+/subscribe genre -> Allows a user to subscribe to a specific genre. [demo](https://youtu.be/a8aUznwgTdQ) <br>
+/listSubscriptions -> Lists all subscriptions for the member. [demo](https://youtu.be/60j4FlHb69U) <br>
+/upcoming -> Returns only the upcoming movies that have the genres that a user is subscribed to. <!-- [demo]() -->
+
+## ETL Pipeline
+
+The ETL Pipeline, scheduled with a cron job, is responsible to weekly fetch the upcoming movies releasing on theathers. If first starts by fetching a list of the upcoming movies from the TMDB API, applies a simple transformation step, in which it prepares the data to be stored on the DB. As a last step, it stores the data on the database, and publishes a message, with the list of the upcoming movies, on the message broker to be consumed by the bot. A demo video for this process can be found in this link. <!-- [link](). -->
 
 # Attribution
 

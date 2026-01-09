@@ -27,7 +27,7 @@ class SubscriptionService():
                     await ctx.send(f"successfully subscribed to {res[choice][1]}")
                     break
                 else:
-                    await ctx.send("please select a valida number")   
+                    await ctx.send("please select a valid number")   
 
         except SubscriptionViolationException:
             await ctx.send("You're already subscribed to that genre")
