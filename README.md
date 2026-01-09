@@ -34,7 +34,7 @@ The above image shows the design entity relation model for the bot database. All
 
 ## Commands
 
-Each command has a demo video, posted on my youtube channel. In order to see the video, just select the demo in one of the commands, or you can find all the videos in my [playlist]().
+Each command has a demo video, posted on my youtube channel. In order to see the video, just select the demo in one of the commands, or you can find all the videos in my [playlist](https://www.youtube.com/playlist?list=PLWeEhzd1th_saM1B0TwGcwLBxc2Mzyldj).
 
 /ping -> A ping command to test if the bot is alive. [demo](https://youtu.be/if4bIWr39Ak) <br>
 /listCommands -> Returns a list of all the available commands. [demo](https://youtu.be/9EhAZpyh0xQ) <br>
