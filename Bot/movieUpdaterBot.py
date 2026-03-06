@@ -48,7 +48,7 @@ async def listCommands(ctx):
 
 @bot.event
 async def on_ready():
-    bot.repo.connect()
+    await bot.repo.connect()
     await bot.load_extension("cogs.MemberRegister")
     await bot.load_extension("cogs.SubscriptionCog")
     await consumer.connect()

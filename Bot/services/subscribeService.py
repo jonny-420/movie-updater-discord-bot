@@ -10,7 +10,7 @@ class SubscriptionService():
 
     async def subscribeByGenre(self, ctx):
         try:
-            res = self.repo.getGenres()
+            res = await self.repo.getGenres()
             msg = formatGenreList(res)
             
             await ctx.send(f'please select one of the following genres:\n {msg}')
@@ -31,7 +31,9 @@ class SubscriptionService():
 
         except SubscriptionViolationException:
             await ctx.send("You're already subscribed to that genre")
-        except:
+        except Exception as e:
+            message = str(e)           
+            print(f"Error: {message}")        
             await ctx.send("Something went wrong, please try again later!")
 
     async def listSubscriptions(self, ctx):

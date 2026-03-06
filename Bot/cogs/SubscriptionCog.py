@@ -12,7 +12,7 @@ class SubscriptionCog(commands.Cog):
 For now it is only being considered genre subsrciptions """
     @commands.command()
     @commands.check(check_user_role)
-    async def subscribe(self, ctx, arg):
+    async def subscribe(self, ctx, arg=None):
         try:
             match arg:
                 case "genre":

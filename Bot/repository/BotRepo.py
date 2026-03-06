@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import aiopg
 from dotenv import load_dotenv
 import bcrypt
 from Exceptions.SubscriptionViolationException import SubscriptionViolationException
@@ -15,12 +16,12 @@ class BotRepo():
         self.port = os.getenv('DB_PORT')
         self.connection = None
 
-    def connect(self):
+    async def connect(self):
         if(self.connection != None):
             return
         
         print("starting Connection")
-        self.connection = psycopg2.connect(
+        self.connection = await aiopg.connect(
             database = self.database,
             user = self.user,
             password = self.password,
@@ -34,25 +35,25 @@ class BotRepo():
         
         self.connection.close()
 
-    def insertMember(self, userId, userName):
-        cursor = self.connection.cursor()
+    async def insertMember(self, userId, userName):
+        cursor = await self.connection.cursor()
         hashedId = self.__hashId(userId) 
         sql = f"INSERT INTO member (id, username) VALUES ('{hashedId}' , '{userName}')"
-        cursor.execute(sql)
-        self.connection.commit()
+        await cursor.execute(sql)
+        # await self.connection.commit()
 
     # TODO: Rethink if it's better to remove based on user id rather than his name.
-    def removeMember(self, userName):
-        cursor = self.connection.cursor()
+    async def removeMember(self, userName):
+        cursor = await self.connection.cursor()
         sql = f'DELETE FROM member WHERE username = \'{userName}\''
-        cursor.execute(sql)
-        self.connection.commit()
+        await cursor.execute(sql)
+        # await self.connection.commit()
 
-    def getGenres(self):
-        cursor = self.connection.cursor()
+    async def getGenres(self):
+        cursor = await self.connection.cursor()
         sql = "SELECT * FROM genres"
-        cursor.execute(sql)
-        response = cursor.fetchall()
+        await cursor.execute(sql)
+        response = await cursor.fetchall()
         print(response)
         return response
         
