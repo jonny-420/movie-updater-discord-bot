@@ -16,11 +16,11 @@ class MemberRegister(commands.Cog):
         if "movie watcher" in after_roles_names:
             if "movie watcher" in before_roles_names:
                 return
-            self.repo.insertMember(after.id, after.name)
+            await self.repo.insertMember(after.id, after.name)
         else:
             if "movie watcher" not in before_roles_names:
                 return
-            self.repo.removeMember(after.name)
+            await self.repo.removeMember(after.name)
 
 
 async def setup(bot):
