@@ -10,7 +10,7 @@ class SubscriptionService():
 
     async def subscribeByGenre(self, ctx):
         try:
-            res = self.repo.getGenres()
+            res = await self.repo.getGenres()
             msg = formatGenreList(res)
             
             await ctx.send(f'please select one of the following genres:\n {msg}')
@@ -22,7 +22,6 @@ class SubscriptionService():
                 choice = await self.bot.wait_for('message', check=validate, timeout=60.0)
                 choice = int(choice.content) 
                 if choice >= 0 and choice <= len(res):
-                    print(choice)
                     self.repo.insertGenreSubscription(res[choice], ctx.author)
                     await ctx.send(f"successfully subscribed to {res[choice][1]}")
                     break
@@ -31,13 +30,14 @@ class SubscriptionService():
 
         except SubscriptionViolationException:
             await ctx.send("You're already subscribed to that genre")
-        except:
+        except Exception as e:
+            message = str(e)           
+            print(f"Error: {message}")        
             await ctx.send("Something went wrong, please try again later!")
 
     async def listSubscriptions(self, ctx):
         try:
-            genres = self.repo.listSubscriptions(ctx.author)
-            print(genres)
+            genres = await self.repo.listSubscriptions(ctx.author)
             msg = formatGenreList(genres)
             await ctx.send(f"{ctx.author} doesn't have any subscriptions") if len(msg) == 0 else await ctx.send(f"{ctx.author} subscribes the following genres: \n{msg}")
         except:

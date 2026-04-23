@@ -43,12 +43,13 @@ async def listCommands(ctx):
     await ctx.send("/ping -> checks if the bot is alive \n"
     "/subscribe genre -> subscribe to topics of a specific genre\n"
     "/list genres -> lists all the genres that a user is subscribed to\n"
-    "/unsubscribe genre -> allows a user to unsubscribe to a genre\n")
+    "/unsubscribe genre -> allows a user to unsubscribe to a genre\n"
+    "/upcoming -> lists all the upcoming movies that are related to the users subscriptions")
 
 
 @bot.event
 async def on_ready():
-    bot.repo.connect()
+    await bot.repo.connect()
     await bot.load_extension("cogs.MemberRegister")
     await bot.load_extension("cogs.SubscriptionCog")
     await consumer.connect()

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-import requests
+import httpx
 
 
 class HttpService():
@@ -9,8 +9,7 @@ class HttpService():
         load_dotenv()
         self.api_token = os.getenv('API_TOKEN')    
 
-    """ TODO: the requests library performs synch requests, change for
-    another library to perform async requests """ 
+    # Deprecated Function
     async def fecthUpcoming(self): 
         print(self.api_token)
         url = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
@@ -19,6 +18,7 @@ class HttpService():
             "Authorization": f'Bearer {self.api_token}'
         }
 
-        response = requests.get(url, headers=headers) 
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, headers=headers) 
         print(response)
         return response
